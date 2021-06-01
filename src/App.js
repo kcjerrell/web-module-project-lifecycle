@@ -1,25 +1,42 @@
-import logo from './logo.svg';
-import './App.css';
+import axios from 'axios';
+import React from 'react';
+import { dummyGet } from './dummyData';
+import FollowList from './components/FollowersList';
+import GitHubCard from './components/GitHubCard';
+import { AppContainer, AppHeaderStyled } from './styled';
+import gitHubLogo from './image/githublogo.png';
+import lambdaLogo from './image/lambdalogo.png';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+class App extends React.Component {
+  state = {
+    username: "kcjerrell",
+  }
+
+  componentDidMount() {
+    // axios.get("https://api.github.com/users/kcjerrell/following")
+    //   .then(response => console.log(response))
+    //   .catch(error => console.log(error));
+  }
+
+  render() {
+    return (
+      <div>
+        <AppHeaderStyled className="App-header">
+          <img src={lambdaLogo} alt="Lambda Logo" />
+          <p>❤️'s</p>
+          <img src={gitHubLogo} alt="GitHub Logo" />
+        </AppHeaderStyled>
+
+        <AppContainer>
+          <GitHubCard username={this.state.username} />
+          <FollowList username={this.state.username} dir="ing"/>
+        </AppContainer>
+
+
+
+      </div>
+    );
+  }
 }
 
 export default App;
