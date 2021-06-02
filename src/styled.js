@@ -2,7 +2,7 @@ import styled from 'styled-components';
 
 export const GitHubCardContainer = styled.div`
 	margin: 0em 0em 0em;
-	margin-left: ${props => props.indent ? "4em" : "0em"};
+	/* margin-left: ${props => props.indent ? "4em" : "0em"}; */
 	padding: 1em;
 
 	.card {
@@ -13,27 +13,50 @@ export const GitHubCardContainer = styled.div`
 		border-radius: 5px;
 		box-shadow: 0 1px 6px -2px #000;
 		background-color: #FFF;
+		position: relative;
 
 		img {
-			width: 150px;
-			height: 150px;
+			width: 180px;
+			height: 180px;
 			border-radius: 3px;
 			margin-right: 20px;
 		}
 
 		.name {
 			font-size: 1.5em;
+			color: blue;
+		}
+
+		a {
+			text-decoration: none;
+
+			&:hover {
+				text-decoration: underline;
+			}
 		}
 
 		p {
-			font-size: 1.2rem;
-			margin-bottom: 3px;
+			/* font-size: 1.2rem;
+			margin-bottom: 3px; */
+			margin-block-start: .5em;
+		}
+
+		.prop {
+			font-size: 1em;
+			font-weight: 600;
 		}
 
 		.username {
 			font-size: 1.2rem;
 			font-style: italic;
-			margin: 3px 0 10px;
+			/* margin: 3px 0 10px; */
+		}
+
+		.follows {
+			background-color: #22222222;
+			position: absolute;
+			right: 0px;
+			bottom: 0px;
 		}
 	}
 `;

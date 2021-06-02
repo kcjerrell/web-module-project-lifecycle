@@ -25,7 +25,7 @@ class FollowList extends React.Component {
 				{this.state.users.length > 0
 					? this.state.users.map(user => {
 						return (
-							<GitHubCard userdata={user} indent={1}/>
+							<GitHubCard key={user.login} userdata={user} indent={1}/>
 						);
 					})
 					: <p>Loading...</p>

@@ -27,19 +27,19 @@ class GitHubCard extends React.Component {
 			.catch(error => console.log(`Error fetching '${url}': ${error}`));
 	}
 
-	noneableValue(value) {
+	noneableValue(value, className = "value") {
 		if (value)
-			return <span className="value">{value}</span>;
+			return <span className={className}>{value}</span>;
 		else
-			return <span className="value" style={{ fontStyle: 'italic' }}>none</span>
+			return <span className={className} style={{ fontStyle: 'italic' }}>none</span>
 	}
 
 	render() {
 		const user = this.state.userData;
-		const { indent } = this.props;
+		const { size } = this.props;
 
 		return (
-			<GitHubCardContainer indent={indent}>
+			<GitHubCardContainer size={size}>
 				{this.state.userData
 					? <div className="card">
 
@@ -47,35 +47,33 @@ class GitHubCard extends React.Component {
 
 						<div className="card-info">
 
-							<h3 className="name">{user.name}</h3>
+							<a href={user.html_url}>
+								<h3 className="name">{user.login}</h3>
+							</a>
 
-							<p className="username">{user.login}</p>
+							{true && <p className="username">{user.name}</p>}
 
 							<p>
 								<span className="prop">Location:&nbsp;</span>
 								{this.noneableValue(user.location)}
 							</p>
 
-							<p>
+							{/* <p>
 								<span className="prop">Profile:&nbsp;</span>
 								<a href={user.html_url}>{user.html_url}</a>
-							</p>
-
-							<p>
-								<span className="prop">Followers:&nbsp;</span>
-								<span className="value">{user.followers}</span>
-							</p>
-
-							<p>
-								<span className="prop">Following:&nbsp;</span>
-								<span className="value">{user.following}</span>
-							</p>
+							</p> */}
 
 							<p>
 								<span className="prop">Bio:&nbsp;</span>
 								{this.noneableValue(user.bio)}
 							</p>
+
+							<p>
+								<button>{user.followers} followers</button>
+								<button>{user.following} following</button>
+							</p>
 						</div>
+
 					</div>
 
 					: <div className="card">

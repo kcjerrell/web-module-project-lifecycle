@@ -1,34 +1,81 @@
-// I know it is not best practice to include an access token in the source or repo
-
 import axios from "axios";
 
-// But I'm doing it anyway!
-const accessToken = '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';
-const username = 'kcjerrell';
-const auth = { username, password: accessToken };
+class ApiCache {
+	// cache = {};
+	// hits = 0;
+	// misses = 0;
 
+	constructor() {
+		let storage = JSON.parse(localStorage.getItem('githubCache'));
 
-// But now I'm going to cache all the responses anyway
-const githubCache = { ...JSON.parse(localStorage.getItem('githubCache')) };
+		if (!storage) {
+			storage = {};
+			localStorage.setItem('githubCache', JSON.stringify(storage));
+			localStorage.setItem('githubCacheHits', 0);
+			localStorage.setItem('githubCacheMisses', 0);
+		}
 
-const fetch = url =>
-{
-	if (Object.hasOwnProperty.call(githubCache, url)) {
-		console.log(`we've got '${url} already!`)
+		this._cache = storage;
+	}
 
-		// This is where I would check how old the cache value is, and fetch if stale
+	has(url) {
+		const hasItem = Object.hasOwnProperty.call(this._cache, url);
 
-		return Promise.resolve(githubCache[url]);
+		if (!hasItem)
+			console.log(`Github Cache: ${++this.misses} miss!`)
+
+		return hasItem;
+	}
+
+	get(url) {
+		if (!this.has(url))
+			throw Error("Did you even check first?");
+
+		console.log(`Github Cache: ${++this.hits} served from cache!`)
+		return this._cache[url];
+	}
+
+	add(url, data) {
+		this._cache[url] = data;
+
+		localStorage.setItem('githubCache', JSON.stringify(this._cache));
+
+		console.log(`Github Cache: ${Object.keys(this._cache)} items stored!`)
+	}
+
+	get hits() {
+		return parseInt(localStorage.getItem('githubCacheHits'));
+	}
+
+	set hits(value) {
+		localStorage.setItem('githubCacheHits', value);
+	}
+
+	get misses() {
+		return parseInt(localStorage.getItem('githubCacheMisses'));
+	}
+
+	set misses(value) {
+		localStorage.setItem('githubCacheMisses', value);
+	}
+}
+
+const cache = new ApiCache();
+
+const fetch = url => {
+	if (cache.has(url)) {
+		return Promise.resolve(cache.get(url));
 	}
 
 	else {
-		return axios.get(url, { auth })
+		return axios.get(url)
 			.then(response => {
-				githubCache[url] = response;
-				localStorage.setItem('githubCache', JSON.stringify(githubCache));
+				cache.add(url, response);
 				return response;
 			})
-			.catch(error => console.log(error));
+			.catch(error => {
+				console.log(error);
+			});
 	}
 }
 
