@@ -1,5 +1,5 @@
 import React from 'react';
-import { dummyGet } from '../dummyData';
+import fetch from '../apiAccess';
 import GitHubCard from './GitHubCard';
 
 class FollowList extends React.Component {
@@ -12,7 +12,7 @@ class FollowList extends React.Component {
 
 		const url = `https://api.github.com/users/${username}/follow${dir}`;
 
-		dummyGet(url)
+		fetch(url)
 			.then(response => {
 				this.setState({ users: response.data });
 			})

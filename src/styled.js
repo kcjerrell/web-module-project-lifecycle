@@ -2,7 +2,7 @@ import styled from 'styled-components';
 
 export const GitHubCardContainer = styled.div`
 	margin: 0em 0em 0em;
-	margin-left: ${props => props.indent ? 2 * props.indent + "em" : "0em"};
+	margin-left: ${props => props.indent ? "4em" : "0em"};
 	padding: 1em;
 
 	.card {

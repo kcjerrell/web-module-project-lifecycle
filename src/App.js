@@ -1,6 +1,4 @@
-import axios from 'axios';
 import React from 'react';
-import { dummyGet } from './dummyData';
 import FollowList from './components/FollowersList';
 import GitHubCard from './components/GitHubCard';
 import { AppContainer, AppHeaderStyled } from './styled';
