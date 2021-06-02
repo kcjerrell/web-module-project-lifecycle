@@ -1,5 +1,13 @@
 import styled from 'styled-components';
 
+export const FollwersListContainer = styled.div`
+	display: flex;
+	flex-direction: row;
+	flex-wrap: wrap;
+	justify-content: space-between;
+	align-items: top;
+`;
+
 export const GitHubCardContainer = styled.div`
 	margin: 0em 0em 0em;
 	/* margin-left: ${props => props.indent ? "4em" : "0em"}; */
@@ -11,9 +19,9 @@ export const GitHubCardContainer = styled.div`
 		padding: 20px;
 		display: flex;
 		border-radius: 5px;
-		box-shadow: 0 1px 6px -2px #000;
+	box-shadow: 0 0px 8px -1px #000;
 		background-color: #FFF;
-		position: relative;
+
 
 		img {
 			width: 180px;
@@ -21,6 +29,7 @@ export const GitHubCardContainer = styled.div`
 			border-radius: 3px;
 			margin-right: 20px;
 		}
+
 
 		.name {
 			font-size: 1.5em;
@@ -59,6 +68,34 @@ export const GitHubCardContainer = styled.div`
 			bottom: 0px;
 		}
 	}
+
+	.card.mini {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+
+		/* width: 180px; */
+
+		img {
+			width: 120px;
+			height: 120px;
+			object-fit: contain;
+			margin: auto;
+		}
+
+		.prop, .username, .follows, p {
+			display: none;
+		}
+
+		.name {
+			font-size: 1.2em;
+		}
+	}
+
+	.card.mini:hover {
+	box-shadow: 0 0px 4px 1px #88F;
+	/* border: 1px solid #009; */
+}
 `;
 
 export const AppContainer = styled.div`

@@ -18,7 +18,7 @@ class App extends React.Component {
   }
 
   selectUser = username => {
-    this.setState({ user: username });
+    this.setState({ user: username, follow: "" });
   }
 
   showFollow = dir => {
@@ -38,11 +38,8 @@ class App extends React.Component {
 
         <AppContainer>
           <GitHubCard username={this.state.user} size="top" commands={this.commands}/>
-          {this.state.follow && <FollowList username={this.state.user} dir={this.state.follow} />}
+          {this.state.follow && <FollowList username={this.state.user} dir={this.state.follow} commands={this.commands}/>}
         </AppContainer>
-
-
-
       </div>
     );
   }

@@ -8,6 +8,15 @@ class GitHubCard extends React.Component {
 	};
 
 	componentDidMount() {
+		this.updateCard();
+	}
+
+	componentDidUpdate(oldProps) {
+		if (this.props.username !== oldProps.username)
+			this.updateCard();
+	}
+
+	updateCard() {
 		// this component can receive either a username only, or partial userdata
 		const { userdata } = this.props;
 		let username = this.props.username;
@@ -36,12 +45,12 @@ class GitHubCard extends React.Component {
 
 	render() {
 		const user = this.state.userData;
-		const { size, commands } = this.props;
+		const { size, commands, onClick } = this.props;
 
 		return (
-			<GitHubCardContainer size={size}>
+			<GitHubCardContainer size={size} onClick={onClick}>
 				{this.state.userData
-					? <div className="card">
+					? <div className={`card ${size}`} >
 
 						<img src={user.avatar_url} alt={`avatar for ${user.login}`} />
 
@@ -73,7 +82,11 @@ class GitHubCard extends React.Component {
 									<button onClick={() => commands.showFollow("ers")}>{user.followers} followers</button>
 									<button onClick={() => commands.showFollow("ing")}>{user.following} following</button>
 								</p>
-								: <p>lalal</p>
+								: <p>
+									<span>{user.followers} followers</span>
+									 &nbsp;-&nbsp;
+									<span>{user.following} following</span>
+								</p>
 							}
 						</div>
 
