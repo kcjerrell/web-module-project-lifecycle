@@ -8,6 +8,17 @@ class FollowList extends React.Component {
 	};
 
 	componentDidMount() {
+		this.updateList();
+	}
+
+	componentDidUpdate(oldProps) {
+		console.log("list update")
+		if (oldProps.dir !== this.props.dir)
+			this.updateList();
+	}
+
+	updateList()
+	{
 		const { username, dir } = this.props;
 
 		const url = `https://api.github.com/users/${username}/follow${dir}`;

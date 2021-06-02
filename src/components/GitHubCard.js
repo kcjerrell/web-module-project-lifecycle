@@ -36,7 +36,7 @@ class GitHubCard extends React.Component {
 
 	render() {
 		const user = this.state.userData;
-		const { size } = this.props;
+		const { size, commands } = this.props;
 
 		return (
 			<GitHubCardContainer size={size}>
@@ -68,10 +68,13 @@ class GitHubCard extends React.Component {
 								{this.noneableValue(user.bio)}
 							</p>
 
-							<p>
-								<button>{user.followers} followers</button>
-								<button>{user.following} following</button>
-							</p>
+							{size === "top"
+								? < p >
+									<button onClick={() => commands.showFollow("ers")}>{user.followers} followers</button>
+									<button onClick={() => commands.showFollow("ing")}>{user.following} following</button>
+								</p>
+								: <p>lalal</p>
+							}
 						</div>
 
 					</div>

@@ -7,7 +7,8 @@ import lambdaLogo from './image/lambdalogo.png';
 
 class App extends React.Component {
   state = {
-    username: "kcjerrell",
+    user: "kcjerrell",
+    follow: ""
   }
 
   componentDidMount() {
@@ -15,6 +16,16 @@ class App extends React.Component {
     //   .then(response => console.log(response))
     //   .catch(error => console.log(error));
   }
+
+  selectUser = username => {
+    this.setState({ user: username });
+  }
+
+  showFollow = dir => {
+    this.setState({ follow: dir });
+  }
+
+  commands = {selectUser: this.selectUser, showFollow: this.showFollow };
 
   render() {
     return (
@@ -26,8 +37,8 @@ class App extends React.Component {
         </AppHeaderStyled>
 
         <AppContainer>
-          <GitHubCard username={this.state.username} />
-          <FollowList username={this.state.username} dir="ing"/>
+          <GitHubCard username={this.state.user} size="top" commands={this.commands}/>
+          {this.state.follow && <FollowList username={this.state.user} dir={this.state.follow} />}
         </AppContainer>
 
 
